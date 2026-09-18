@@ -24,7 +24,9 @@
     <div id="hint">click — drop a sphere · R — reset</div>
     <div id="err"></div>
     <script type="module">
-      import("/src/main.ts");
+      const mode = new URLSearchParams(window.location.search).get("mode");
+      if (mode === "earth") import("/src/earth-viewer.ts");
+      else import("/src/main.ts");
     </script>
   </body>
 </html>
