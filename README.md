@@ -35,6 +35,10 @@ packages/                       shared TypeScript, runs on client AND server
     gameplay/   @engine/gameplay        keyframe animation · grid A* + steering · behaviour trees
   07-networking/
     net/        @engine/net             binary (de)serialization · snapshot interp · prediction + reconciliation · deltas
+  08-tools/
+    tools/      @engine/tools           headless GLB loader · sectioned Profiler · DebugDraw buffer
+  09-scientific/
+    scientific/ @engine/scientific      Kepler orbital propagator · Julian date/GMST · RK4 · planar FK
 crates/                         Rust (cargo), reusable outside JS
   num-rs/                       Gauss-Legendre quadrature · 3×3 linalg
 apps/                           thin consumers of the packages above
@@ -46,8 +50,8 @@ benchmarks/                     dependency-free micro-benchmarks
 
 **Stability** is declared per package (`"stability"` in each `package.json`):
 `stable` = math, geometry, core, physics, ecs, num-rs · `experimental` = engine,
-render-webgl2, world, gameplay, net · everything else in the tree is `planned`
-(see `ROADMAP.md`).
+render-webgl2, world, gameplay, net, tools, scientific · everything else in the
+tree is `planned` (see `ROADMAP.md`).
 
 ## Installation (from scratch)
 

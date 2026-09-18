@@ -136,6 +136,21 @@ importers:
 
   packages/07-networking/net: {}
 
+  packages/08-tools/tools:
+    dependencies:
+      '@engine/geometry':
+        specifier: workspace:*
+        version: link:../../01-foundation/geometry
+      '@engine/math':
+        specifier: workspace:*
+        version: link:../../01-foundation/math
+
+  packages/09-scientific/scientific:
+    dependencies:
+      '@engine/math':
+        specifier: workspace:*
+        version: link:../../01-foundation/math
+
 packages:
 
   '@esbuild/aix-ppc64@0.25.12':

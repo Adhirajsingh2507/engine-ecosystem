@@ -55,17 +55,17 @@ engine-ecosystem
 │   ├── prediction         ✅  Predictor: local predict of unacked inputs
 │   └── reconciliation     ✅  Predictor.reconcile: adopt authoritative state + replay
 │
-├── 08 Tools
-│   ├── asset pipeline     🟡  a bespoke GLB parser exists in apps/client/earth/model.ts
-│   ├── editor             ⬜
-│   ├── profiler           ⬜
-│   └── debugging          ⬜
+├── 08 Tools                              packages/08-tools/tools  (@engine/tools)
+│   ├── asset pipeline     ✅  headless GLB (glTF 2.0) geometry loader → MeshData (parseGlb/glbToMeshData)
+│   ├── editor             ⬜  (browser-heavy; deferred)
+│   ├── profiler           ✅  Profiler: sectioned begin/end/measure with injectable clock + stats
+│   └── debugging          ✅  DebugDraw: line/box/cross buffer → interleaved vertex data for a renderer
 │
-└── 09 Scientific / Specialized
-    ├── astronomy          ⬜
-    ├── orbital mechanics  ⬜  PLAN: Kepler propagator reusing crates/num-rs; relates to orbit-trust
-    ├── robotics           ⬜  relates to TerraSight (SLAM, stereo depth, rover)
-    └── simulation         ⬜
+└── 09 Scientific / Specialized           packages/09-scientific/scientific  (@engine/scientific)
+    ├── astronomy          ✅  Julian Date / days-since-J2000 / GMST
+    ├── orbital mechanics  ✅  Kepler propagator (elements→state), solveKepler, period, specific energy
+    ├── robotics           ✅  planar forward kinematics (serial chain) — TerraSight rover-arm flavour
+    └── simulation         ✅  generic RK4 integrator (add/scale ops)
 ```
 
 ## Conventions
