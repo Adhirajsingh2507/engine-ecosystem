@@ -28,7 +28,8 @@ packages/                       shared TypeScript, runs on client AND server
   03-runtime/
     engine/     @engine/engine          Engine: Registry + Scheduler + FixedTimestep + scene + render hook
   04-rendering/
-    webgl2/     @engine/render-webgl2   WebGL2 forward renderer: PBR · PCF shadows · HDR bloom · ACES
+    render-core/ @engine/render-core    backend seam + render graph · PBR materials · lighting/shadow math · colour
+    webgl2/     @engine/render-webgl2   WebGL2 forward renderer (a render-core backend): PBR · shadows · bloom · ACES
   05-world/
     world/      @engine/world           value noise + FBM · Heightmap (slope/roughness/traversability) → mesh
   06-gameplay/
@@ -50,8 +51,8 @@ benchmarks/                     dependency-free micro-benchmarks
 
 **Stability** is declared per package (`"stability"` in each `package.json`):
 `stable` = math, geometry, core, physics, ecs, num-rs · `experimental` = engine,
-render-webgl2, world, gameplay, net, tools, scientific · everything else in the
-tree is `planned` (see `ROADMAP.md`).
+render-core, render-webgl2, world, gameplay, net, tools, scientific · everything
+else in the tree is `planned` (see `ROADMAP.md`).
 
 ## Installation (from scratch)
 

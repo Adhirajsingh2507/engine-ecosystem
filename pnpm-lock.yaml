@@ -107,6 +107,12 @@ importers:
         specifier: workspace:*
         version: link:../../01-foundation/math
 
+  packages/04-rendering/render-core:
+    dependencies:
+      '@engine/math':
+        specifier: workspace:*
+        version: link:../../01-foundation/math
+
   packages/04-rendering/webgl2:
     dependencies:
       '@engine/math':

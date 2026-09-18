@@ -26,13 +26,13 @@ engine-ecosystem
 │   └── engine             ✅  packages/03-runtime/engine  (Engine: Registry + Scheduler +
 │                              FixedTimestep + scene + backend-agnostic render callback)
 │
-├── 04 Rendering
-│   ├── render-core        ⬜  device/pipeline/target abstraction shared across backends
+├── 04 Rendering                          packages/04-rendering/{render-core, webgl2}
+│   ├── render-core        ✅  @engine/render-core: backend device seam + the pure pieces below
+│   ├── render graph       ✅  RenderGraph: pass DAG, topological compile, resource lifetimes
+│   ├── materials          ✅  StandardMaterial (metal/rough PBR) + F0; sRGB↔linear colour
+│   ├── lighting           ✅  directional/point/spot types · attenuation · spot cone · shadow matrix
 │   ├── WebGL2             ✅  packages/04-rendering/webgl2  (PBR, PCF shadows, HDR bloom, ACES)
-│   ├── WebGPU             ⬜  parallel backend behind render-core
-│   ├── render graph       ⬜  pass scheduling / resource aliasing
-│   ├── materials          ⬜  material/shader system
-│   ├── lighting           ⬜  light types, shadow atlas, GI
+│   ├── WebGPU             ⬜  backend implementing render-core's RenderDevice — browser-verification gated
 │   └── ray tracing        🟡  offline path tracer (apps/server) + GPU Earth raytracer (apps/client/earth)
 │
 ├── 05 World                              packages/05-world/world  (@engine/world)
