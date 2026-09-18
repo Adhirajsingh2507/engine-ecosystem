@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { Ray, Vec3 } from "@engine/math";
+import { Vec3 } from "@engine/math";
+import { Ray } from "@engine/geometry";
 import { buildGaruda } from "../src/garuda.ts";
 
 test("Garuda builds as a substantial triangle mesh and is ray-intersectable", () => {

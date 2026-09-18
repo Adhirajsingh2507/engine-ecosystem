@@ -1,7 +1,8 @@
 import { Vec3 } from "@engine/math";
 import type { Material } from "./tracer.ts";
-import type { MeshVertex, TriMeshObj } from "./mesh.ts";
-import { sphereMesh, cylinderMesh, coneMesh, torusMesh, combineMeshes } from "./mesh.ts";
+import type { MeshVertex } from "@engine/geometry";
+import { sphereMesh, cylinderMesh, coneMesh, torusMesh } from "@engine/geometry";
+import { meshFromParts, type TriMeshObj } from "./meshobj.ts";
 
 /**
  * Procedural devotional Garuda model.
@@ -287,5 +288,5 @@ export function buildGaruda(options: GarudaOptions = {}): TriMeshObj {
   garudaBody(parts);
   garudaHead(parts);
   if (includeVishnu) vishnuRider(parts);
-  return combineMeshes(parts, MATERIALS);
+  return meshFromParts(parts, MATERIALS);
 }

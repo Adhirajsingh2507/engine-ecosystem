@@ -1,4 +1,5 @@
-import { Vec3, Sphere } from "@engine/math";
+import { Vec3 } from "@engine/math";
+import { Sphere } from "@engine/geometry";
 import type { Scene } from "./tracer.ts";
 
 /** The cinematic still: a metal + coloured spheres on a checker floor, lit by a

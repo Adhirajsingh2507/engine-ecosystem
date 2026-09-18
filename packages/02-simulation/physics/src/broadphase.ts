@@ -1,4 +1,4 @@
-import { Aabb } from "@engine/math";
+import { Aabb } from "@engine/geometry";
 
 /**
  * Uniform-grid spatial hash for broad-phase collision culling. Buckets each AABB

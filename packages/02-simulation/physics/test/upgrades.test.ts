@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { Vec3, Mat3, Aabb } from "@engine/math";
+import { Vec3, Mat3 } from "@engine/math";
+import { Aabb } from "@engine/geometry";
 import { RigidBody, World, aabbAabbContact, resolveContact } from "../src/index.ts";
 
 test("inertia tensor: spinning about a low-inertia axis accelerates faster", () => {

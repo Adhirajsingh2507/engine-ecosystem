@@ -1,5 +1,6 @@
-import { Ray, Sphere, Vec3, raySphere } from '@engine/math';
-import { createProgram } from '../gl.ts';
+import { Vec3 } from '@engine/math';
+import { Ray, Sphere, raySphere } from '@engine/geometry';
+import { createProgram } from '@engine/render-webgl2';
 import { loadEarth } from './model.ts';
 import { vertex, fragment } from './shaders.ts';
 

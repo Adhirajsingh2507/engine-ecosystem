@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "@engine/math": "workspace:*",
-    "@engine/physics": "workspace:*"
+    "@engine/physics": "workspace:*",
+    "@engine/geometry": "workspace:*",
+    "@engine/render-webgl2": "workspace:*"
   },
   "devDependencies": {
     "vite": "^6"

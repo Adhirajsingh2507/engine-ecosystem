@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { Vec3, Sphere, Aabb } from "@engine/math";
+import { Vec3 } from "@engine/math";
+import { Sphere, Aabb } from "@engine/geometry";
 import { RigidBody, SpatialHash, sphereSphereContact, resolveContact } from "../src/index.ts";
 
 const X = new Vec3(1, 0, 0);

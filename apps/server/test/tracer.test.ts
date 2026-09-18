@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { Vec3, Ray, Sphere } from "@engine/math";
+import { Vec3 } from "@engine/math";
+import { Ray, Sphere } from "@engine/geometry";
 import { intersect, radiance, acesTonemap, mulberry32, Camera } from "../src/tracer.ts";
 import type { Scene } from "../src/tracer.ts";
 import { encodePng } from "../src/png.ts";

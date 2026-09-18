@@ -1,4 +1,4 @@
-import { Vec3 } from "./vec3.ts";
+import { Vec3 } from "@engine/math";
 
 /** A half-line: points origin + direction * t, for t ≥ 0. */
 export class Ray {

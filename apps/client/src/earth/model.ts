@@ -1,5 +1,6 @@
-import { Triangle, Vec3 } from '@engine/math';
-import { BVH } from '../../../server/src/bvh.ts';
+import { Vec3 } from '@engine/math';
+import { Triangle } from '@engine/geometry';
+import { BVH } from '@engine/geometry';
 
 type Accessor = { bufferView: number; byteOffset?: number; count: number; componentType: number; type: string };
 type View = { byteOffset?: number; byteLength: number; byteStride?: number };

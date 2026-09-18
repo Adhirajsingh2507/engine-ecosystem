@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { Sphere, Aabb, Vec3 } from "@engine/math";
+import { Vec3 } from "@engine/math";
+import { Sphere, Aabb } from "@engine/geometry";
 import { sphereSphereContact, sphereAabbContact } from "../src/index.ts";
 
 test("sphere-sphere: overlap gives depth + a→b normal", () => {

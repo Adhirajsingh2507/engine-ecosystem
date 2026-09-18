@@ -1,4 +1,5 @@
-import { Vec3, Sphere, Aabb } from "@engine/math";
+import { Vec3 } from "@engine/math";
+import { Sphere, Aabb } from "@engine/geometry";
 
 /**
  * A single contact between two shapes. `normal` is unit and points from the

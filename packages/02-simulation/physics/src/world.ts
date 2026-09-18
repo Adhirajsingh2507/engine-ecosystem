@@ -1,4 +1,5 @@
-import { Vec3, Aabb, Sphere } from "@engine/math";
+import { Vec3 } from "@engine/math";
+import { Aabb, Sphere } from "@engine/geometry";
 import { RigidBody } from "./rigidbody.ts";
 import { SpatialHash } from "./broadphase.ts";
 import { sphereSphereContact, sphereAabbContact, aabbAabbContact, type Contact } from "./narrowphase.ts";

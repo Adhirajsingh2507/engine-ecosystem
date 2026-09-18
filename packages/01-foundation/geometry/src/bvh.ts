@@ -1,4 +1,6 @@
-import { Vec3, Aabb, Ray, Triangle, rayTriangle, type TriHit } from "@engine/math";
+import { Vec3 } from "@engine/math";
+import { Aabb, Ray } from "./geometry.ts";
+import { Triangle, rayTriangle, type TriHit } from "./triangle.ts";
 
 /**
  * A flat, SAH-inspired BVH over an indexed triangle soup.

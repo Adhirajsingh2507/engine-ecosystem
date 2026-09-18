@@ -1,5 +1,6 @@
-import { Vec3, Ray, Sphere, raySphere } from "@engine/math";
-import type { TriMeshObj } from "./mesh.ts";
+import { Vec3 } from "@engine/math";
+import { Ray, Sphere, raySphere } from "@engine/geometry";
+import type { TriMeshObj } from "./meshobj.ts";
 
 /**
  * A compact Monte-Carlo path tracer. It reuses @engine/math for all geometry

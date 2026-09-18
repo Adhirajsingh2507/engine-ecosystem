@@ -6,8 +6,10 @@
   "type": "module",
   "scripts": {
     "test": "node --test --experimental-strip-types packages/*/*/test/*.test.ts",
+    "test:server": "node --test --experimental-strip-types apps/server/test/*.test.ts",
     "typecheck": "tsc",
-    "check": "pnpm typecheck && pnpm test",
+    "typecheck:apps": "tsc -p apps/client/tsconfig.json && tsc -p apps/server/tsconfig.json",
+    "check": "pnpm typecheck && pnpm typecheck:apps && pnpm test && pnpm test:server",
     "test:rust": "cargo test --manifest-path crates/num-rs/Cargo.toml"
   },
   "packageManager": "pnpm@9.15.0",

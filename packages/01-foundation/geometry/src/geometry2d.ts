@@ -1,4 +1,4 @@
-import { Vec2 } from "./vec2.ts";
+import { Vec2 } from "@engine/math";
 
 /** A 2D half-line: origin + direction * t, t ≥ 0. Direction normalized on build. */
 export class Ray2 {

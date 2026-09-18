@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { Aabb, Vec3, aabbAabb } from "@engine/math";
+import { Vec3 } from "@engine/math";
+import { Aabb, aabbAabb } from "@engine/geometry";
 import { SpatialHash } from "../src/index.ts";
 
 const box = (min: [number, number, number], max: [number, number, number]) =>

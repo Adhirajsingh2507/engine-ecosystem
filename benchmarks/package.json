@@ -1,0 +1,15 @@
+{
+  "name": "@engine/benchmarks",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "math": "node --experimental-strip-types src/math-bench.ts",
+    "physics": "node --experimental-strip-types src/physics-bench.ts",
+    "all": "npm run math && npm run physics"
+  },
+  "dependencies": {
+    "@engine/math": "workspace:*",
+    "@engine/physics": "workspace:*"
+  }
+}

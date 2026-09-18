@@ -1,7 +1,8 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { Vec2 } from "@engine/math";
 import {
-  Vec2, Ray2, Aabb2, Circle,
+  Ray2, Aabb2, Circle,
   rayCircle, rayAabb2, circleCircle, aabb2Aabb2, circleAabb2,
 } from "../src/index.ts";
 

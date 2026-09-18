@@ -1,4 +1,4 @@
-import { Vec3 } from "./vec3.ts";
+import { Vec3 } from "@engine/math";
 import { Ray } from "./geometry.ts";
 
 /**

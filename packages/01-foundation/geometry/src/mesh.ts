@@ -1,10 +1,13 @@
-import { Vec3, Triangle, Ray } from "@engine/math";
+import { Vec3 } from "@engine/math";
+import { Ray } from "./geometry.ts";
+import { Triangle } from "./triangle.ts";
 import { BVH, type BVHTriangle, type BVHHit } from "./bvh.ts";
-import type { Material } from "./tracer.ts";
 
 /**
- * A triangle mesh with one or more materials, backed by a BVH for fast
- * ray intersection. Vertices can have per-vertex normals for smooth shading.
+ * A triangle mesh backed by a BVH for fast ray intersection. Vertices can have
+ * per-vertex normals for smooth shading. Each triangle carries a numeric
+ * `matIndex` — meaning is left to the consumer (the renderer maps it to a
+ * material), so this stays a pure-geometry package with no shading dependency.
  */
 
 export interface MeshVertex {
@@ -12,9 +15,11 @@ export interface MeshVertex {
   normal: Vec3;
 }
 
-export interface TriMeshObj {
-  mesh: TriMesh;
-  materials: Material[];
+/** Raw mesh arrays produced by the procedural generators below. */
+export interface MeshData {
+  vertices: MeshVertex[];
+  indices: number[];
+  matIndices: number[];
 }
 
 export class TriMesh {
@@ -235,11 +240,8 @@ export function torusMesh(
   return { vertices, indices, matIndices };
 }
 
-/** Combine multiple mesh data arrays into a single TriMesh. */
-export function combineMeshes(
-  parts: { vertices: MeshVertex[]; indices: number[]; matIndices: number[] }[],
-  materials: Material[],
-): TriMeshObj {
+/** Combine multiple mesh-data parts into a single TriMesh (offsetting indices). */
+export function combineMeshes(parts: MeshData[]): TriMesh {
   const allVerts: MeshVertex[] = [];
   const allIndices: number[] = [];
   const allMats: number[] = [];
@@ -251,8 +253,5 @@ export function combineMeshes(
     allMats.push(...part.matIndices);
   }
 
-  return {
-    mesh: new TriMesh(allVerts, allIndices, allMats),
-    materials,
-  };
+  return new TriMesh(allVerts, allIndices, allMats);
 }

@@ -17,12 +17,18 @@ importers:
 
   apps/client:
     dependencies:
+      '@engine/geometry':
+        specifier: workspace:*
+        version: link:../../packages/01-foundation/geometry
       '@engine/math':
         specifier: workspace:*
         version: link:../../packages/01-foundation/math
       '@engine/physics':
         specifier: workspace:*
         version: link:../../packages/02-simulation/physics
+      '@engine/render-webgl2':
+        specifier: workspace:*
+        version: link:../../packages/04-rendering/webgl2
     devDependencies:
       vite:
         specifier: ^6
@@ -30,11 +36,47 @@ importers:
 
   apps/server:
     dependencies:
+      '@engine/geometry':
+        specifier: workspace:*
+        version: link:../../packages/01-foundation/geometry
       '@engine/math':
         specifier: workspace:*
         version: link:../../packages/01-foundation/math
 
+  benchmarks:
+    dependencies:
+      '@engine/math':
+        specifier: workspace:*
+        version: link:../packages/01-foundation/math
+      '@engine/physics':
+        specifier: workspace:*
+        version: link:../packages/02-simulation/physics
+
+  examples:
+    dependencies:
+      '@engine/core':
+        specifier: workspace:*
+        version: link:../packages/01-foundation/core
+      '@engine/ecs':
+        specifier: workspace:*
+        version: link:../packages/02-simulation/ecs
+      '@engine/engine':
+        specifier: workspace:*
+        version: link:../packages/03-runtime/engine
+      '@engine/math':
+        specifier: workspace:*
+        version: link:../packages/01-foundation/math
+      '@engine/physics':
+        specifier: workspace:*
+        version: link:../packages/02-simulation/physics
+
   packages/01-foundation/core: {}
+
+  packages/01-foundation/geometry:
+    dependencies:
+      '@engine/math':
+        specifier: workspace:*
+        version: link:../math
 
   packages/01-foundation/math: {}
 
@@ -45,6 +87,27 @@ importers:
         version: link:../../01-foundation/math
 
   packages/02-simulation/physics:
+    dependencies:
+      '@engine/geometry':
+        specifier: workspace:*
+        version: link:../../01-foundation/geometry
+      '@engine/math':
+        specifier: workspace:*
+        version: link:../../01-foundation/math
+
+  packages/03-runtime/engine:
+    dependencies:
+      '@engine/core':
+        specifier: workspace:*
+        version: link:../../01-foundation/core
+      '@engine/ecs':
+        specifier: workspace:*
+        version: link:../../02-simulation/ecs
+      '@engine/math':
+        specifier: workspace:*
+        version: link:../../01-foundation/math
+
+  packages/04-rendering/webgl2:
     dependencies:
       '@engine/math':
         specifier: workspace:*

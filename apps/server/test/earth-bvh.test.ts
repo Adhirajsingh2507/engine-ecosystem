@@ -1,7 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Vec3, Triangle, Ray, Aabb, rayAabb, rayTriangle } from '@engine/math';
-import { BVH } from '../src/bvh.ts';
+import { Vec3 } from '@engine/math';
+import { Triangle, Ray, Aabb, rayAabb, rayTriangle } from '@engine/geometry';
+import { BVH } from '@engine/geometry';
 
 test('GPU BVH packing preserves indexed triangles, bounds and nearest ray hits', () => {
   const triangles=Array.from({length:40},(_,i)=>{

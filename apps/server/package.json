@@ -9,6 +9,7 @@
     "typecheck": "tsc -p tsconfig.json"
   },
   "dependencies": {
-    "@engine/math": "workspace:*"
+    "@engine/math": "workspace:*",
+    "@engine/geometry": "workspace:*"
   }
 }

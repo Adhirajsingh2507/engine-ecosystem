@@ -1,0 +1,17 @@
+{
+  "name": "@engine/examples",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "bounce": "node --experimental-strip-types src/bouncing-spheres.ts",
+    "ecs": "node --experimental-strip-types src/ecs-engine.ts"
+  },
+  "dependencies": {
+    "@engine/math": "workspace:*",
+    "@engine/core": "workspace:*",
+    "@engine/physics": "workspace:*",
+    "@engine/ecs": "workspace:*",
+    "@engine/engine": "workspace:*"
+  }
+}

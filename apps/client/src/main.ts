@@ -1,10 +1,10 @@
-import { Vec3, Mat4, Transform, Aabb, Sphere } from "@engine/math";
+import { Vec3, Mat4, Transform } from "@engine/math";
+import { Aabb, Sphere } from "@engine/geometry";
 import {
   RigidBody, World, SpatialHash,
   sphereSphereContact, sphereAabbContact, resolveContact,
 } from "@engine/physics";
-import { uvSphere } from "./sphere.ts";
-import { Renderer, type Instance, type DirLight } from "./renderer.ts";
+import { uvSphere, Renderer, type Instance, type DirLight } from "@engine/render-webgl2";
 
 // ---------------------------------------------------------------- setup
 const canvas = document.getElementById("c") as HTMLCanvasElement;
