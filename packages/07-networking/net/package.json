@@ -1,0 +1,10 @@
+{
+  "name": "@engine/net",
+  "version": "0.0.0",
+  "type": "module",
+  "stability": "experimental",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}

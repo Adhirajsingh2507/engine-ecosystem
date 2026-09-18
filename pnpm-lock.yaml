@@ -113,6 +113,29 @@ importers:
         specifier: workspace:*
         version: link:../../01-foundation/math
 
+  packages/05-world/world:
+    dependencies:
+      '@engine/core':
+        specifier: workspace:*
+        version: link:../../01-foundation/core
+      '@engine/geometry':
+        specifier: workspace:*
+        version: link:../../01-foundation/geometry
+      '@engine/math':
+        specifier: workspace:*
+        version: link:../../01-foundation/math
+
+  packages/06-gameplay/gameplay:
+    dependencies:
+      '@engine/core':
+        specifier: workspace:*
+        version: link:../../01-foundation/core
+      '@engine/math':
+        specifier: workspace:*
+        version: link:../../01-foundation/math
+
+  packages/07-networking/net: {}
+
 packages:
 
   '@esbuild/aix-ppc64@0.25.12':

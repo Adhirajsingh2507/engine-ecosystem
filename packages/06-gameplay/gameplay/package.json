@@ -1,0 +1,14 @@
+{
+  "name": "@engine/gameplay",
+  "version": "0.0.0",
+  "type": "module",
+  "stability": "experimental",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@engine/math": "workspace:*",
+    "@engine/core": "workspace:*"
+  }
+}

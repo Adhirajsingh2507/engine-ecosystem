@@ -35,26 +35,25 @@ engine-ecosystem
 │   ├── lighting           ⬜  light types, shadow atlas, GI
 │   └── ray tracing        🟡  offline path tracer (apps/server) + GPU Earth raytracer (apps/client/earth)
 │
-├── 05 World
-│   ├── terrain            ⬜  PLAN: port TerraSight terrain-analysis (slope/roughness/traversability),
-│   │                          then heightmap → mesh
-│   ├── procedural gen     ⬜  noise (value/simplex/FBM), builds on core.Rng
+├── 05 World                              packages/05-world/world  (@engine/world)
+│   ├── terrain            ✅  Heightmap: slope/roughness/traversability (TerraSight-style) + heightmap→mesh
+│   ├── procedural gen     ✅  ValueNoise + fractal FBM, seeded via core.Rng
 │   ├── water              ⬜
 │   ├── atmosphere         🟡  scattering shell exists in the GPU Earth shader; generalise later
 │   └── streaming          ⬜  chunked load/unload, LOD
 │
-├── 06 Gameplay
-│   ├── animation          ⬜  clips, skinning, state machines (builds on core.easing + math)
-│   ├── audio              ⬜
-│   ├── navigation         ⬜  navmesh + pathfinding
-│   └── AI                 ⬜  behaviour trees / steering
+├── 06 Gameplay                           packages/06-gameplay/gameplay  (@engine/gameplay)
+│   ├── animation          ✅  Track<T>/Clip keyframe sampling with per-segment easing
+│   ├── audio              ⬜  (browser-only; deferred until it can be tested headless)
+│   ├── navigation         ✅  grid A* (4/8-way, no corner-cutting) + steering (seek/arrive/flee)
+│   └── AI                 ✅  functional behaviour trees (sequence/selector/invert/…)
 │
-├── 07 Networking
-│   ├── serialization      ⬜
-│   ├── snapshots          ⬜
-│   ├── replication        ⬜
-│   ├── prediction         ⬜
-│   └── reconciliation     ⬜
+├── 07 Networking                         packages/07-networking/net  (@engine/net)
+│   ├── serialization      ✅  ByteWriter/ByteReader (LEB128 varints, strings, vec3)
+│   ├── snapshots          ✅  SnapshotBuffer entity interpolation
+│   ├── replication        ✅  field-level numeric delta (diff/apply)
+│   ├── prediction         ✅  Predictor: local predict of unacked inputs
+│   └── reconciliation     ✅  Predictor.reconcile: adopt authoritative state + replay
 │
 ├── 08 Tools
 │   ├── asset pipeline     🟡  a bespoke GLB parser exists in apps/client/earth/model.ts
