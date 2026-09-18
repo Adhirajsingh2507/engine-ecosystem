@@ -110,6 +110,8 @@ apps/                           thin consumers of the packages above
   server/                       offline Monte-Carlo path tracer → PNG
 examples/                       small runnable programs that consume the engine
 benchmarks/                     dependency-free micro-benchmarks
+cli/                            the `npx` installer that vendors packages (registry scan + fail-if-missing deps)
+docs/                           architecture.md · conventions.md · vision.md
 ```
 
 **Stability** is declared per package (`"stability"` in each `package.json`):
