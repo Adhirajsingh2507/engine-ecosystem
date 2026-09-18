@@ -1,5 +1,16 @@
 # engine-ecosystem
 
+![CI](https://github.com/Adhirajsingh2507/engine-ecosystem/actions/workflows/ci.yml/badge.svg)
+![Node ≥ 22](https://img.shields.io/badge/node-%E2%89%A5%2022-3c873a)
+![TypeScript strip-only](https://img.shields.io/badge/TypeScript-strip--only-3178c6)
+![Rust num-rs](https://img.shields.io/badge/Rust-num--rs-dea584)
+![build: none](https://img.shields.io/badge/build-none-brightgreen)
+![packages: 13 TS + 1 Rust](https://img.shields.io/badge/packages-13%20TS%20%2B%201%20Rust-blue)
+
+> **Quick start:** `npx github:Adhirajsingh2507/engine-ecosystem add math physics` —
+> pick the packages you want and vendor their source into your project. See
+> [Install packages into your project](#install-packages-into-your-project-cli).
+
 A reusable game-engine ecosystem: a **layered set of libraries** where math sits
 below physics, physics below the runtime (ECS/scene/engine), and the runtime below
 rendering and games — and where the **browser client and the Node server share the
