@@ -59,6 +59,11 @@ Node ≥ 22 strips types and runs the `.ts` sources directly. Packages point the
 `main` at `src/index.ts`; `tsc` runs as a checker (`noEmit`). A build step is added
 per package only when it is published to npm.
 
+Because types are *stripped* (not compiled), syntax that emits runtime code is
+banned — **no `enum`, no parameter properties, no runtime `namespace`/decorators**.
+See [`conventions.md`](./conventions.md) for the full list and the strip-safe
+alternatives; it also covers the testing and deferred-not-stubbed rules.
+
 ## Testing
 
 - TypeScript: `node --test` with type-stripping. Package tests live in each
@@ -75,3 +80,6 @@ per package only when it is published to npm.
 3. Put code in `src/` (with a `src/index.ts` barrel) and tests in `test/`.
 4. `pnpm install` to link it, then `pnpm check`.
 5. Update `ROADMAP.md` status.
+
+Follow [`conventions.md`](./conventions.md) while writing it: strip-safe syntax
+only, a headless-runnable test, and no empty stubs.

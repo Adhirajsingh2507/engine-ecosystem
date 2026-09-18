@@ -115,3 +115,9 @@ Node ≥ 22 runs the `.ts` sources directly via type-stripping. Packages import 
 other's source (`@engine/math` → its `src/`), and `tsc` runs as a pure checker
 (`noEmit`), never a compiler. Add a build step only when publishing a package to
 npm — not before.
+
+Because types are stripped rather than compiled, a few TypeScript features are off
+limits (`enum`, parameter properties, …). Contributing rules — strip-safe syntax,
+the headless-test requirement, and the deferred-not-stubbed policy — are in
+[`docs/conventions.md`](./docs/conventions.md); the layer/dependency model is in
+[`docs/architecture.md`](./docs/architecture.md).
