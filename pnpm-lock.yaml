@@ -19,10 +19,10 @@ importers:
     dependencies:
       '@engine/math':
         specifier: workspace:*
-        version: link:../../packages/math
+        version: link:../../packages/01-foundation/math
       '@engine/physics':
         specifier: workspace:*
-        version: link:../../packages/physics
+        version: link:../../packages/02-simulation/physics
     devDependencies:
       vite:
         specifier: ^6
@@ -32,21 +32,23 @@ importers:
     dependencies:
       '@engine/math':
         specifier: workspace:*
-        version: link:../../packages/math
+        version: link:../../packages/01-foundation/math
 
-  packages/ecs:
+  packages/01-foundation/core: {}
+
+  packages/01-foundation/math: {}
+
+  packages/02-simulation/ecs:
     dependencies:
       '@engine/math':
         specifier: workspace:*
-        version: link:../math
+        version: link:../../01-foundation/math
 
-  packages/math: {}
-
-  packages/physics:
+  packages/02-simulation/physics:
     dependencies:
       '@engine/math':
         specifier: workspace:*
-        version: link:../math
+        version: link:../../01-foundation/math
 
 packages:
 

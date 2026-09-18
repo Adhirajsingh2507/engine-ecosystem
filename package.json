@@ -1,13 +1,14 @@
 {
-  "name": "3d-game",
+  "name": "engine-ecosystem",
   "version": "0.0.0",
   "private": true,
-  "description": "Reusable 3D game-engine ecosystem (math → physics → ECS → engine) shared across browser client and Node server.",
+  "description": "Reusable game-engine ecosystem organised into layered categories (foundation → simulation → rendering → …), shared across browser client and Node server, with a Rust numerics crate alongside.",
   "type": "module",
   "scripts": {
-    "test": "node --test --experimental-strip-types packages/*/test/*.test.ts",
+    "test": "node --test --experimental-strip-types packages/*/*/test/*.test.ts",
     "typecheck": "tsc",
-    "check": "pnpm typecheck && pnpm test"
+    "check": "pnpm typecheck && pnpm test",
+    "test:rust": "cargo test --manifest-path crates/num-rs/Cargo.toml"
   },
   "packageManager": "pnpm@9.15.0",
   "devDependencies": {

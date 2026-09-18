@@ -34,26 +34,34 @@ numerics crate (`crates/num-rs`) rides alongside for CPU-heavy math.
        (Vec3 · Mat4 · Quaternion · geometry · noise)
 ```
 
-## Layout (grows as filled — no empty scaffolding)
+## Layout (organised into the 01–08 categories; see `ROADMAP.md` for the full tree)
+
+Modules live under numbered category folders, but package **names** stay flat
+(`@engine/math`, `@engine/core`, …) so imports never depend on tree position.
 
 ```
 packages/   shared code, runs on client AND server (TypeScript)
-  math/       ✅ 3D: Vec3/Vec4 · Mat3/Mat4 · Quaternion · Transform · geometry+intersections
+  01-foundation/
+    math/     ✅ 3D: Vec3/Vec4 · Mat3/Mat4 · Quaternion · Transform + geometry/intersections
               ✅ 2D: Vec2 · Transform2D · Circle/Aabb2/Ray2 + intersections (71 tests)
-  physics/    ✅ RigidBody (scalar OR full Mat3 inertia tensor) · World with the collision
+    core/     ✅ deterministic Rng · interpolation/easing · FixedTimestep loop (7 tests)
+  02-simulation/
+    physics/  ✅ RigidBody (scalar OR full Mat3 inertia tensor) · World with the collision
               pass wired in (broadphase → narrowphase → impulse solver) · sphere/box
               contacts incl. box↔box · restitution + Coulomb friction (47 tests)
-  ecs/        ✅ Registry (entities + component stores + typed query) · SceneNode graph ·
+    ecs/      ✅ Registry (entities + component stores + typed query) · SceneNode graph ·
               Signal event channel · Scheduler/System (6 tests)
-  net/        ⬜ serialization · replication · prediction · reconciliation
 crates/     Rust (built with cargo, reusable outside JS)
   num-rs/     ✅ Gauss-Legendre quadrature · 3×3 linalg — extracted from orbit_core (6 tests)
 apps/
   client/     🟡 Cinematic WebGL2 engine (Vite) — PBR · PCF shadow maps · HDR+bloom · ACES,
               live physics sandbox + interactive GPU-raytraced Earth
   server/     🟡 Offline path tracer — GI · soft shadows · metals · depth of field → PNG
-games/        ⬜ sandbox → racing → FPS → RTS → open world
 ```
+
+Everything else in the target architecture (rendering packages, world, gameplay,
+networking, tools, scientific) is tracked in **`ROADMAP.md`** — not scaffolded as
+empty folders.
 
 ## Roadmap (start small, each step is usable on its own)
 
