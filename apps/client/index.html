@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DevX Engine</title>
+    <meta name="description" content="3D engine — path-traced Garuda deity model and real-time physics sandbox" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><circle cx='8' cy='8' r='6' fill='%23ffd26a'/></svg>" />
+
+    <style>
+      :root { color-scheme: dark; }
+      html, body { margin: 0; height: 100%; overflow: hidden; background: #0a0b0e; }
+      body { font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; color: #cdd3dc; }
+      #c { display: block; width: 100vw; height: 100vh; }
+      #hud { position: fixed; top: 14px; left: 16px; pointer-events: none; text-shadow: 0 1px 3px #000; }
+      #hud .n { color: #8ab4ff; font-weight: 600; }
+      #hint { position: fixed; bottom: 14px; left: 16px; opacity: 0.55; }
+      #err { position: fixed; inset: 0; display: none; place-items: center; padding: 24px; text-align: center; color: #ff9d9d; }
+    </style>
+  </head>
+  <body>
+    <canvas id="c"></canvas>
+    <div id="hud"></div>
+    <div id="hint">click — drop a sphere · R — reset</div>
+    <div id="err"></div>
+    <script type="module">
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("mode") === "viewer") {
+        import("/src/viewer.ts");
+      } else {
+        import("/src/main.ts");
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+[package]
+name = "num-rs"
+version = "0.1.0"
+edition = "2021"
+description = "Small, dependency-free numerics: Gauss-Legendre quadrature and 3x3 linear algebra. Extracted from ORBIT-TRUST's orbit_core to be reusable across projects."
+license = "MIT OR Apache-2.0"
+
+[lib]
+name = "num_rs"
+path = "src/lib.rs"
+
+[dependencies]
