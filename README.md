@@ -13,6 +13,58 @@ Package names stay flat (`@engine/math`, `@engine/physics`, …) while the folde
 group them into numbered layers. The full target architecture and status live in
 [`ROADMAP.md`](./ROADMAP.md); the design rationale in [`docs/architecture.md`](./docs/architecture.md).
 
+## Install packages into your project (CLI)
+
+Pick only the packages you want and vendor their source into your project — no npm
+account, no global install. The CLI is a dependency-free Node script, so it runs
+the same on **Windows, macOS, and Linux** (needs Node ≥ 22, which the engine uses
+anyway). Run it straight from GitHub with `npx`:
+
+```bash
+# see everything available (grouped by layer, with stability + deps)
+npx github:Adhirajsingh2507/engine-ecosystem list
+
+# add packages — short or full names; --dest defaults to ./engine
+npx github:Adhirajsingh2507/engine-ecosystem add math geometry physics
+
+# no names → interactive picker
+npx github:Adhirajsingh2507/engine-ecosystem add
+```
+
+On Windows, the same commands work in PowerShell, CMD, or Git Bash.
+
+### Dependencies are explicit (not auto-added)
+
+Adding a package **fails if any of its `@engine/*` dependencies are missing** — the
+CLI won't silently pull them in. It tells you exactly what to add:
+
+```
+$ npx github:Adhirajsingh2507/engine-ecosystem add physics
+Cannot add — missing dependencies (they are not auto-added):
+  @engine/physics needs: @engine/math, @engine/geometry
+Add them explicitly, e.g.:
+  npx engine-ecosystem add physics math geometry
+```
+
+A dependency counts as satisfied if it's **already in your `--dest` folder** or
+**named in the same command**. So either add the whole set at once
+(`add math geometry physics`) or add the lower layers first.
+
+### After adding — make `@engine/*` resolve
+
+Vendored packages land in `./engine/<name>/` (e.g. `engine/math`, `engine/physics`)
+and keep their `@engine/*` import specifiers. Point your tooling at them once:
+
+- **Workspaces (pnpm/npm/yarn):** add `"engine/*"` to your workspace globs and
+  install — the `@engine/*` names link automatically.
+- **tsconfig only:** add a path map —
+  ```json
+  { "compilerOptions": { "paths": { "@engine/*": ["engine/*/src"] } } }
+  ```
+
+The Rust crate (`num-rs`) vendors as a normal Cargo crate — add it to your
+workspace's `Cargo.toml`.
+
 ## Layout
 
 ```

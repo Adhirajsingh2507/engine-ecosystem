@@ -4,12 +4,16 @@
   "private": true,
   "description": "Reusable game-engine ecosystem organised into layered categories (foundation → simulation → rendering → …), shared across browser client and Node server, with a Rust numerics crate alongside.",
   "type": "module",
+  "bin": {
+    "engine-ecosystem": "cli/index.mjs"
+  },
   "scripts": {
     "test": "node --test --experimental-strip-types packages/*/*/test/*.test.ts",
     "test:server": "node --test --experimental-strip-types apps/server/test/*.test.ts",
+    "test:cli": "node --test cli/test/*.test.mjs",
     "typecheck": "tsc",
     "typecheck:apps": "tsc -p apps/client/tsconfig.json && tsc -p apps/server/tsconfig.json",
-    "check": "pnpm typecheck && pnpm typecheck:apps && pnpm test && pnpm test:server",
+    "check": "pnpm typecheck && pnpm typecheck:apps && pnpm test && pnpm test:server && pnpm test:cli",
     "test:rust": "cargo test --manifest-path crates/num-rs/Cargo.toml"
   },
   "packageManager": "pnpm@9.15.0",
