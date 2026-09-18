@@ -1,114 +1,110 @@
-# engine — a reusable game-engine ecosystem
+# engine-ecosystem
 
-Not "a game engine." A **layered set of libraries** where math sits below
-physics, physics below the engine (ECS/scene), and the engine below the games —
-and where **the browser client and the Node server share the same simulation
-code** (TypeScript compiles to both, no bindings). A small dependency-free Rust
-numerics crate (`crates/num-rs`) rides alongside for CPU-heavy math.
+A reusable game-engine ecosystem: a **layered set of libraries** where math sits
+below physics, physics below the runtime (ECS/scene/engine), and the runtime below
+rendering and games — and where the **browser client and the Node server share the
+same code** (TypeScript compiles to both, no bindings). A small dependency-free
+Rust crate (`crates/num-rs`) rides alongside for CPU-heavy numerics.
 
-> The goal: every new game should need *less* engine code than the last. That's
-> the proof the abstraction is real.
+> Goal: every new game needs *less* engine code than the last. That's the proof
+> the abstraction is real.
 
-## Dependency graph
+Package names stay flat (`@engine/math`, `@engine/physics`, …) while the folders
+group them into numbered layers. The full target architecture and status live in
+[`ROADMAP.md`](./ROADMAP.md); the design rationale in [`docs/architecture.md`](./docs/architecture.md).
 
-```
-                games/*  (validation projects)
-                   │
-             gameplay framework
-                   │
-        ┌──────────┼──────────┐
-     apps/client            apps/server
-     (WebGL, input,         (authoritative sim,
-      prediction)            networking, persistence)
-        └──────────┼──────────┘
-                   │
-            packages/engine   (ECS · scene · events · serialization)
-                   │
-        ┌──────────┼──────────┐
-   packages/physics      packages/net
-   (collision, rigid-      (protocol, replication,
-    body, solver)           prediction, snapshots)
-        └──────────┼──────────┘
-                   │
-            packages/math   ← the bottom rung (built)
-       (Vec3 · Mat4 · Quaternion · geometry · noise)
-```
-
-## Layout (organised into the 01–08 categories; see `ROADMAP.md` for the full tree)
-
-Modules live under numbered category folders, but package **names** stay flat
-(`@engine/math`, `@engine/core`, …) so imports never depend on tree position.
+## Layout
 
 ```
-packages/   shared code, runs on client AND server (TypeScript)
+packages/                       shared TypeScript, runs on client AND server
   01-foundation/
-    math/     ✅ 3D: Vec3/Vec4 · Mat3/Mat4 · Quaternion · Transform + geometry/intersections
-              ✅ 2D: Vec2 · Transform2D · Circle/Aabb2/Ray2 + intersections (71 tests)
-    core/     ✅ deterministic Rng · interpolation/easing · FixedTimestep loop (7 tests)
+    math/       @engine/math            Vec2/3/4 · Mat3/4 · Quaternion · Transform/2D
+    geometry/   @engine/geometry        Ray/Aabb/Sphere/Triangle + 2D + intersections · BVH · TriMesh
+    core/       @engine/core            deterministic Rng · interpolation/easing · FixedTimestep
   02-simulation/
-    physics/  ✅ RigidBody (scalar OR full Mat3 inertia tensor) · World with the collision
-              pass wired in (broadphase → narrowphase → impulse solver) · sphere/box
-              contacts incl. box↔box · restitution + Coulomb friction (47 tests)
-    ecs/      ✅ Registry (entities + component stores + typed query) · SceneNode graph ·
-              Signal event channel · Scheduler/System (6 tests)
-crates/     Rust (built with cargo, reusable outside JS)
-  num-rs/     ✅ Gauss-Legendre quadrature · 3×3 linalg — extracted from orbit_core (6 tests)
-apps/
-  client/     🟡 Cinematic WebGL2 engine (Vite) — PBR · PCF shadow maps · HDR+bloom · ACES,
-              live physics sandbox + interactive GPU-raytraced Earth
-  server/     🟡 Offline path tracer — GI · soft shadows · metals · depth of field → PNG
+    physics/    @engine/physics         RigidBody (scalar or Mat3 inertia) · World collision pass
+                                        (broad→narrow→solver) · restitution + friction
+    ecs/        @engine/ecs             Registry + typed query · SceneNode graph · Signal · Scheduler
+  03-runtime/
+    engine/     @engine/engine          Engine: Registry + Scheduler + FixedTimestep + scene + render hook
+  04-rendering/
+    webgl2/     @engine/render-webgl2   WebGL2 forward renderer: PBR · PCF shadows · HDR bloom · ACES
+crates/                         Rust (cargo), reusable outside JS
+  num-rs/                       Gauss-Legendre quadrature · 3×3 linalg
+apps/                           thin consumers of the packages above
+  client/                       Vite WebGL2 physics sandbox (+ a GPU-raytraced Earth module)
+  server/                       offline Monte-Carlo path tracer → PNG
+examples/                       small runnable programs that consume the engine
+benchmarks/                     dependency-free micro-benchmarks
 ```
 
-Everything else in the target architecture (rendering packages, world, gameplay,
-networking, tools, scientific) is tracked in **`ROADMAP.md`** — not scaffolded as
-empty folders.
+**Stability** is declared per package (`"stability"` in each `package.json`):
+`stable` = math, geometry, core, physics, ecs, num-rs · `experimental` = engine,
+render-webgl2 · everything else in the tree is `planned` (see `ROADMAP.md`).
 
-## Roadmap (start small, each step is usable on its own)
+## Installation (from scratch)
 
-`Vec3 → Mat4 → Quaternion → Transform → geometry/intersections`
-` → RigidBody → collision (broad/narrow/solver) → ECS → renderer`
-` → networking → deterministic sim → authoritative server → games`
+**Prerequisites**
 
-Highest-value order for systems depth:
-**Math → Physics → ECS → memory/pooling → job system → renderer →
-networking → deterministic sim → multiplayer server → asset pipeline → editor.**
-
-Full design notes and the long-form vision live in `docs/vision.md`.
-
-## Run
+| Tool | Version | Why |
+|------|---------|-----|
+| [Node.js](https://nodejs.org) | **≥ 22** | runs the `.ts` sources directly (type-stripping) — no build step |
+| [pnpm](https://pnpm.io) | **9.x** | workspace package manager |
+| [Rust](https://rustup.rs) + cargo | stable | only for the `crates/num-rs` numerics crate (optional) |
 
 ```bash
-pnpm install     # once: links workspace packages + installs tsc / @types/node
-pnpm check       # typecheck + tests (CI gate)
-pnpm test        # tests only
-pnpm typecheck   # types only
+# 1. Get the code
+git clone git@github.com:Adhirajsingh2507/engine-ecosystem.git
+cd engine-ecosystem
 
-# Rust numerics crate
-cargo test --manifest-path crates/num-rs/Cargo.toml
+# 2. Install pnpm if you don't have it (either works)
+npm install -g pnpm        # or:  corepack enable && corepack prepare pnpm@9 --activate
+
+# 3. Install workspace dependencies (links all @engine/* packages together)
+pnpm install
+
+# 4. Verify everything works
+pnpm check                                              # typecheck + all TS tests + app tests
+cargo test --manifest-path crates/num-rs/Cargo.toml     # Rust tests (skip if no Rust)
 ```
 
-## Garuda devotional render
+If `pnpm check` prints test summaries with `# fail 0`, you're set.
 
-The offline renderer includes a procedural white-and-gold Garuda with layered
-wings, jewelry, a devotional flight pose, and a removable Vishnu rider. It uses
-the engine's triangle mesh and BVH path rather than an imported image or model.
+## Commands
 
 ```bash
-# Fast composition preview
-pnpm --filter server render 640 360 16 5 garuda-preview.png --scene garuda
+pnpm check            # full gate: tsc + apps tsc + package tests + server tests
+pnpm test             # package unit tests only
+pnpm typecheck        # types only (packages, examples, benchmarks)
+pnpm test:rust        # cargo test for num-rs
 
-# Final Full HD frontend asset
-pnpm --filter server render 1920 1080 12 5 ../client/public/garuda.png --scene garuda
+# apps (from repo root)
+pnpm --filter client dev                       # WebGL2 physics sandbox at http://localhost:5173
+pnpm --filter server render 640 360 64 6 out.png   # offline path trace → out.png
+#                          W   H  spp depth
 
-# Open /?mode=viewer for Garuda; / remains the physics sandbox
-pnpm --filter client dev
+# examples & benchmarks
+pnpm --filter @engine/examples bounce          # physics: spheres on a box floor
+pnpm --filter @engine/examples ecs             # runtime: ECS movement via Engine loop
+pnpm --filter @engine/benchmarks all           # math + physics micro-benchmarks
 ```
 
-`buildGaruda()` includes Vishnu for the reference-inspired hero scene. Pass
-`{ includeVishnu: false }` to reuse Garuda alone in another composition.
+## Using a package in your own code
 
-Node ≥ 22 runs the `.ts` sources directly via type-stripping — **no build
-step**. Packages import each other's source (`@engine/math` → its `src`), and
-`tsc` runs as a pure checker (`noEmit`), never a compiler. When a package is
-eventually published to npm, add a build step then — not before.
+```ts
+import { Vec3 } from "@engine/math";
+import { World, RigidBody } from "@engine/physics";
+
+const world = new World(new Vec3(0, -9.81, 0), { restitution: 0.5 });
+world.add(new RigidBody({ mass: 1, position: new Vec3(0, 5, 0), collider: { kind: "sphere", radius: 0.5 } }));
+world.step(1 / 60);
 ```
+
+See [`examples/`](./examples) for complete, runnable programs.
+
+## No build step
+
+Node ≥ 22 runs the `.ts` sources directly via type-stripping. Packages import each
+other's source (`@engine/math` → its `src/`), and `tsc` runs as a pure checker
+(`noEmit`), never a compiler. Add a build step only when publishing a package to
+npm — not before.

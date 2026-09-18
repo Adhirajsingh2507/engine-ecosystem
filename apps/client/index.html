@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>DevX Engine</title>
-    <meta name="description" content="3D engine — path-traced Garuda deity model and real-time physics sandbox" />
+    <meta name="description" content="Real-time WebGL2 physics sandbox built on the engine-ecosystem packages" />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><circle cx='8' cy='8' r='6' fill='%23ffd26a'/></svg>" />
 
     <style>
@@ -24,12 +24,7 @@
     <div id="hint">click — drop a sphere · R — reset</div>
     <div id="err"></div>
     <script type="module">
-      const params = new URLSearchParams(window.location.search);
-      if (params.get("mode") === "viewer") {
-        import("/src/viewer.ts");
-      } else {
-        import("/src/main.ts");
-      }
+      import("/src/main.ts");
     </script>
   </body>
 </html>

@@ -10,8 +10,8 @@ engine-ecosystem
 │
 ├── 01 Foundation
 │   ├── math               ✅  packages/01-foundation/math  (Vec2/3/4, Mat3/4, Quaternion, Transform/2D)
-│   ├── geometry           🟡  currently inside math (Ray/Aabb/Sphere/Triangle + 2D + intersections);
-│   │                          split into @engine/geometry only if it earns its own package
+│   ├── geometry           ✅  packages/01-foundation/geometry  (Ray/Aabb/Sphere/Triangle + 2D +
+│   │                          intersections · BVH · TriMesh) — split out of math
 │   ├── numerics           ✅  crates/num-rs (Rust: Gauss-Legendre quadrature, 3×3 linalg)
 │   └── core               ✅  packages/01-foundation/core  (Rng, interpolation/easing, FixedTimestep)
 │
@@ -20,18 +20,22 @@ engine-ecosystem
 │   ├── ECS                ✅  packages/02-simulation/ecs  (Registry, query, Scheduler, Signal)
 │   ├── scene              🟡  SceneNode graph lives in ecs; promote to its own module if it grows
 │   ├── collision          🟡  broad/narrow phase + solver live in physics
-│   └── spatial            🟡  SpatialHash lives in physics; generalise to grid + BVH → own module
+│   └── spatial            🟡  SpatialHash in physics; BVH in geometry; unify into a spatial module later
 │
-├── 03 Rendering
-│   ├── render-core        ⬜  device/pipeline/target abstraction (extract from apps/client)
-│   ├── WebGL2             ✅  apps/client  (PBR, PCF shadows, HDR bloom, ACES) — to be extracted into a package
+├── 03 Runtime (integration layer — not one of the 8 domain categories)
+│   └── engine             ✅  packages/03-runtime/engine  (Engine: Registry + Scheduler +
+│                              FixedTimestep + scene + backend-agnostic render callback)
+│
+├── 04 Rendering
+│   ├── render-core        ⬜  device/pipeline/target abstraction shared across backends
+│   ├── WebGL2             ✅  packages/04-rendering/webgl2  (PBR, PCF shadows, HDR bloom, ACES)
 │   ├── WebGPU             ⬜  parallel backend behind render-core
 │   ├── render graph       ⬜  pass scheduling / resource aliasing
 │   ├── materials          ⬜  material/shader system
 │   ├── lighting           ⬜  light types, shadow atlas, GI
 │   └── ray tracing        🟡  offline path tracer (apps/server) + GPU Earth raytracer (apps/client/earth)
 │
-├── 04 World
+├── 05 World
 │   ├── terrain            ⬜  PLAN: port TerraSight terrain-analysis (slope/roughness/traversability),
 │   │                          then heightmap → mesh
 │   ├── procedural gen     ⬜  noise (value/simplex/FBM), builds on core.Rng
@@ -39,26 +43,26 @@ engine-ecosystem
 │   ├── atmosphere         🟡  scattering shell exists in the GPU Earth shader; generalise later
 │   └── streaming          ⬜  chunked load/unload, LOD
 │
-├── 05 Gameplay
+├── 06 Gameplay
 │   ├── animation          ⬜  clips, skinning, state machines (builds on core.easing + math)
 │   ├── audio              ⬜
 │   ├── navigation         ⬜  navmesh + pathfinding
 │   └── AI                 ⬜  behaviour trees / steering
 │
-├── 06 Networking
+├── 07 Networking
 │   ├── serialization      ⬜
 │   ├── snapshots          ⬜
 │   ├── replication        ⬜
 │   ├── prediction         ⬜
 │   └── reconciliation     ⬜
 │
-├── 07 Tools
+├── 08 Tools
 │   ├── asset pipeline     🟡  a bespoke GLB parser exists in apps/client/earth/model.ts
 │   ├── editor             ⬜
 │   ├── profiler           ⬜
 │   └── debugging          ⬜
 │
-└── 08 Scientific / Specialized
+└── 09 Scientific / Specialized
     ├── astronomy          ⬜
     ├── orbital mechanics  ⬜  PLAN: Kepler propagator reusing crates/num-rs; relates to orbit-trust
     ├── robotics           ⬜  relates to TerraSight (SLAM, stereo depth, rover)
